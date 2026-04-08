@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Checkout</title>
+
+<style>
+body {
+  font-family: 'Segoe UI';
+  background: linear-gradient(135deg,#c2e9fb,#a1c4fd);
+  padding:20px;
+}
+
+.box {
+  background:white;
+  padding:20px;
+  border-radius:15px;
+  margin-bottom:20px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+button {
+  background:#4facfe;
+  color:white;
+  border:none;
+  padding:10px;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+button:hover {
+  background:#00c6ff;
+}
+</style>
+</head>
+
+<body>
+
+<h2>🛒 Keranjang</h2>
+
+<div class="box" id="list"></div>
+
+<h2>💳 Pembayaran</h2>
+<div class="box">
+<select>
+<option>COD</option>
+<option>Transfer Bank</option>
+<option>DANA</option>
+<option>OVO</option>
+<option>GoPay</option>
+</select>
+</div>
+
+<h2>📍 Alamat & Maps</h2>
+<div class="box">
+<input type="text" placeholder="Masukkan alamat" style="width:100%;padding:10px"><br><br>
+
+<iframe 
+width="100%" height="200" 
+src="https://maps.google.com/maps?q=indonesia&t=&z=13&ie=UTF8&iwloc=&output=embed">
+</iframe>
+</div>
+
+<button onclick="bayar()">Bayar Sekarang</button>
+
+<script>
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+let list = document.getElementById("list");
+
+function tampil(){
+  list.innerHTML="";
+  cart.forEach((item,i)=>{
+    list.innerHTML += `
+    <p>${item} 
+    <button onclick="hapus(${i})">❌</button></p>`;
+  });
+}
+
+function hapus(i){
+  cart.splice(i,1);
+  localStorage.setItem('cart', JSON.stringify(cart));
+  tampil();
+}
+
+function bayar(){
+  alert("Pembayaran berhasil 🎉");
+  localStorage.removeItem('cart');
+  window.location.href = "index.html";
+}
+
+tampil();
+</script>
+
+</body>
+</html>
